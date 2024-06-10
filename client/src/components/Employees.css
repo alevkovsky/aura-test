@@ -1,0 +1,54 @@
+.employee-table-container {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+.filters {
+    flex: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.filter-section h3 {
+    margin-bottom: 10px;
+}
+
+.filter-checkbox {
+    margin-bottom: 5px;
+}
+
+.filter-checkbox input {
+    margin-right: 10px;
+}
+
+.table-container {
+    flex: 3;
+    height: 80vh;
+    overflow: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f1f1f1;
+    z-index: 1;
+    padding: 10px;
+    text-align: left;
+}
+
+tbody td {
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
