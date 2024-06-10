@@ -1,5 +1,6 @@
 import React from 'react';
 import FilterValue from '../reusable/FilterValue';
+import './EmployeeFilters.css';
 
 const EmployeeFilters = ({ filters, selectedFilters, handleFilterChange }) => {
     return (
