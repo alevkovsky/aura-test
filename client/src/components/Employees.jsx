@@ -48,9 +48,9 @@ const Employees = () => {
         filtersDirty.current = true;
         const updatedFilters = { ...selectedFilters };
         if (e.target.checked) {
-            updatedFilters[name].push(value);
+            updatedFilters[name].push(value.id);
         } else {
-            updatedFilters[name] = updatedFilters[name].filter(filter => filter !== value);
+            updatedFilters[name] = updatedFilters[name].filter(filter => filter !== value.id);
         }
         setSelectedFilters(updatedFilters);
     };

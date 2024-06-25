@@ -3,7 +3,7 @@ import './EmployeesTable.css';
 
 const EmployeeTable = ({ employees }) => {
     return (
-        <div className="table-container">
+        <div className="table-container" data-testid="employee-table">
             <table>
                 <thead>
                     <tr>
@@ -15,7 +15,7 @@ const EmployeeTable = ({ employees }) => {
                 </thead>
                 <tbody>
                     {employees.map((employee, index) => (
-                        <tr key={index}>
+                        <tr key={index} data-testid="employee-row">
                             <td>{employee.id}</td>
                             <td>{employee.country}</td>
                             <td>{employee.department}</td>

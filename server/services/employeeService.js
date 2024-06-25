@@ -7,40 +7,41 @@ const parseFilterValues = (value) => value ? value.split(',') : [];
 const getFilteredEmployees = async (roleFilter, countryFilter, departmentFilter) => {
     // Build the where clause dynamically
     const where = {};
-    if (roleFilter.length) where['$Role.name$'] = { [Op.in]: roleFilter };
-    if (countryFilter.length) where['$Country.name$'] = { [Op.in]: countryFilter };
-    if (departmentFilter.length) where['$Department.name$'] = { [Op.in]: departmentFilter };
+    if (roleFilter.length) where.role_id = { [Op.in]: roleFilter };
+    if (countryFilter.length) where.country_id = { [Op.in]: countryFilter };
+    if (departmentFilter.length) where.department_id = { [Op.in]: departmentFilter };
 
-    return Employee.findAll({
+    const employees = await Employee.findAll({
         include: [
-            { model: Role, attributes: [], where: roleFilter.length ? { name: { [Op.in]: roleFilter } } : {} },
-            { model: Country, attributes: [], where: countryFilter.length ? { name: { [Op.in]: countryFilter } } : {} },
-            { model: Department, attributes: [], where: departmentFilter.length ? { name: { [Op.in]: departmentFilter } } : {} }
-        ],
-        attributes: [
-            'id',
-            'first_name',
-            'last_name',
-            [sequelize.col('Role.name'), 'role'],
-            [sequelize.col('Country.name'), 'country'],
-            [sequelize.col('Department.name'), 'department']
+            { model: Role, attributes: ['name'] },
+            { model: Country, attributes: ['name'] },
+            { model: Department, attributes: ['name'] }
         ],
         where
     });
+
+    return employees.map(employee => ({
+        id: employee.id,
+        first_name: employee.first_name,
+        last_name: employee.last_name,
+        role: employee.Role.name,
+        country: employee.Country.name,
+        department: employee.Department.name
+    }));
 };
 
 // Get filters
 const getFilters = async () => {
     const [roles, countries, departments] = await Promise.all([
-        Role.findAll({ attributes: ['name'] }),
-        Country.findAll({ attributes: ['name'] }),
-        Department.findAll({ attributes: ['name'] })
+        Role.findAll({ attributes: ['id', 'name'] }),
+        Country.findAll({ attributes: ['id', 'name'] }),
+        Department.findAll({ attributes: ['id', 'name'] })
     ]);
 
     return {
-        roles: roles.map(role => role.name),
-        countries: countries.map(country => country.name),
-        departments: departments.map(department => department.name)
+        roles,
+        countries,
+        departments
     };
 };
 

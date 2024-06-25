@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
         last_name: {
             type: DataTypes.STRING,
             allowNull: false
-        }
+        },
+        role_id: DataTypes.INTEGER,
+        country_id: DataTypes.INTEGER,
+        department_id: DataTypes.INTEGER
     }, {
         tableName: 'employees',
         timestamps: false
